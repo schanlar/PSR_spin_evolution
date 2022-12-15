@@ -5,7 +5,7 @@ from astropy import units as u
 from astropy import constants as const
 from astropy.units import Quantity
 
-from typing import Any, Union
+from typing import Any, Union, Optional
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -84,11 +84,11 @@ def spin_period(fspin: Any) -> Quantity:
     """
     fspin = u.Quantity(fspin, u.hertz)
 
-    return ((2.*np.pi) / spin_frequency).decompose()
+    return ((2.*np.pi) / fspin).decompose()
 
 
 
-def spin_frequency(Pspin: Any, omega: bool = False) -> Quantity:
+def spin_frequency(Pspin: Any, omega: Optional[bool] = False) -> Quantity:
     """
     RETURN
     ======
@@ -203,7 +203,7 @@ def eq_spin_frequency(Mdot: Any,
                     M: Any,
                     R: Any,
                     B: Any,
-                    Mdot_edd: Any = 3.0e-8) -> Quantity:
+                    Mdot_edd: Optional[Any] = 3.0e-8) -> Quantity:
     """
     RETURN
     ======
@@ -237,9 +237,9 @@ def accretion_torque(Mdot: Any,
                     M: Any,
                     R: Any,
                     i: Any,
-                    phi: float = 1.0,
-                    xi: float = 1.0,
-                    delta_omega: float = 0.002) -> Quantity:
+                    phi: Optional[float] = 1.0,
+                    xi: Optional[float] = 1.0,
+                    delta_omega: Optional[float] = 0.002) -> Quantity:
     """
     RETURN
     ======
@@ -297,14 +297,14 @@ def accretion_torque(Mdot: Any,
 def evolve_pulsar(time: Any,
                mass_transfer_rate: Any,
                ns_mass: Any,
-               ns_radius: Any = 10.0,
-               magnetic_field: Any = 1e8,
-               spin_period: Any = 10,
-               medd: Any = 3.0e-8,
-               zone_width: float = 0.002,
-               factor_phi: float = 1.0,
-               factor_xi: float = 1.0,
-               inclination_angle: Any = np.pi/2) -> Quantity:
+               ns_radius: Optional[Any] = 10.0,
+               magnetic_field: Optional[Any] = 1e8,
+               spin_period: Optional[Any] = 10,
+               medd: Optional[Any] = 3.0e-8,
+               zone_width: Optional[float] = 0.002,
+               factor_phi: Optional[float] = 1.0,
+               factor_xi: Optional[float] = 1.0,
+               inclination_angle: Optional[Any] = np.pi/2) -> Quantity:
     """
     RETURN
     ======
@@ -423,10 +423,10 @@ def evolve_pulsar(time: Any,
 def plotter(age: np.ndarray,
             mass: np.ndarray,
             mdot: np.ndarray,
-            from_idx: int = 0,
-            to_idx: Union[int, None] = None,
-            save: bool = False,
-            name: str = 'spin_evolution') -> None:
+            from_idx: Optional[int] = 0,
+            to_idx: Optional[Union[int, None]] = None,
+            save: Optional[bool] = False,
+            name: Optional[str] = 'spin_evolution') -> None:
 
     B_fields = [1e8, 10**8.5, 1e9]
     B_tag = [r'$10^{8}$', r'$10^{8.5}$', r'$10^{9}$']
